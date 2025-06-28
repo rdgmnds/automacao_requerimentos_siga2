@@ -1,4 +1,8 @@
 from playwright.sync_api import sync_playwright
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def executar_automacao(usuario, senha, perfil):
     with sync_playwright() as p:
@@ -8,8 +12,8 @@ def executar_automacao(usuario, senha, perfil):
         pagina.goto("https://siga-hub.fgv.br/app/main/home", wait_until="load")
 
         #LOGIN
-        pagina.fill('#user', usuario)
-        pagina.fill('#password', senha)
+        pagina.fill('#user', os.getenv("usuario"))
+        pagina.fill('#password', os.getenv("senha"))
         pagina.click('xpath=//*[@id="content"]/div[2]/form/div[5]/button')
 
         #SELECIONAR PERFIL
